@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Blank App</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+         <style> 
+                    input[type=text], select {
+                      width: 100%;
+                      padding: 12px 20px;
+                      margin: 8px 0;
+                      display: inline-block;
+                      border: 1px solid #ccc;
+                      border-radius: 4px;
+                      box-sizing: border-box;
+                    }
+                    input[type=password], select {
+                      width: 100%;
+                      padding: 12px 20px;
+                      margin: 8px 0;
+                      display: inline-block;
+                      border: 1px solid #ccc;
+                      border-radius: 4px;
+                      box-sizing: border-box;
+                    }
+                    
+                    button {
+                      width: 100%;
+                      background-color: darkgray;
+                      color: white;
+                      padding: 14px 20px;
+                      margin: 8px 0;
+                      border: none;
+                      border-radius: 4px;
+                      cursor: pointer;
+                    }
+                    
+                    button:hover {
+                      background-color: lightgreen;
+                    }
+                    
+                    .loginform{
+                      display: inline-block;
+                      background-color: #9fcc4b;
+                      border-radius: 5px;
+                      padding: 30px;
+                      width: 50%;
+                      position: center;
+                    }
+                    .loginform:hover{
+                    background-color: #00ffe5;
+                     }
+                    header{
+                      padding-bottom: 300px;
+                    }
+                    body{
+                    text-align: center;
+                    background: linear-gradient(90deg, #00ffe5 0%, #9fcc4b 49%, #88ff00 100%);
+                    background-repeat: no-repeat;
+                    background-attachment: fixed;
+                    }
+@media screen and (min-width: 601px) {
+  div{
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  div {
+    
+    font-size: 2vh;
+  }
+}
+
+    </style>
+    </head>
+    <body>
+        <script type="text/javascript" src="cordova.js"></script>
+
+<script>
+$(document).ready(function(){
+$("button").click(function(){
+    document.getElementById("login").disabled = true;
+ var email=$("#email").val();
+// alert(email);
+ var pass=$("#password").val();
+ //alert(pass);
+ var dataTosend='email='+ email +'&password='+ pass;
+
+  if (email !== "" && pass !== "") {
+    //console.log("good");
+    $.ajax({url: "logincheck.php?email="+ email +'&password='+ pass,type: 'POST', success: function(result){
+        var data = result;
+        //alert(data);
+        var duce = jQuery.parseJSON(data);
+      var status =duce.status;
+    if(status=="success"){
+      var role_id = duce.user_data["role_id"];
+      var id = duce.user_data["id"];
+      var first_name = duce.user_data["first_name"];
+      alert("Login successful");
+      window.localStorage.setItem("role_id", role_id);
+      window.localStorage.setItem("id", id);
+      window.localStorage.setItem("first_name", first_name);
+      var see = window.localStorage.getItem("role_id");
+     // alert(see); 
+      window.location="home.html";
+}
+  }});
+}
+});
+});
+ </script>
+          <header>
+            
+          </header>
+<div class="loginform">
+    <form >
+      <label for="lname">Email</label>
+      <input type="text" id="email" name="Email" placeholder="eg:bob@gmail.com">
+  
+      <label for="lname">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your Password..">
+      <button id="login">Login</button>
+    </form>
+  </div>
+
+        </body>
+    </head>
+</html>

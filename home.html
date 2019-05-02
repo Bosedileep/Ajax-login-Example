@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Blank App</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+         <style> 
+                    input[type=text], select {
+                      width: 100%;
+                      padding: 12px 20px;
+                      margin: 8px 0;
+                      display: inline-block;
+                      border: 1px solid #ccc;
+                      border-radius: 4px;
+                      box-sizing: border-box;
+                    }
+                    input[type=password], select {
+                      width: 100%;
+                      padding: 12px 20px;
+                      margin: 8px 0;
+                      display: inline-block;
+                      border: 1px solid #ccc;
+                      border-radius: 4px;
+                      box-sizing: border-box;
+                    }
+                    
+                    button {
+                      width: 100%;
+                      background-color: darkgray;
+                      color: white;
+                      padding: 14px 20px;
+                      margin: 8px 0;
+                      border: none;
+                      border-radius: 4px;
+                      cursor: pointer;
+                    }
+                    
+                    button:hover {
+                      background-color: lightgreen;
+                    }
+                    
+                    .loginform{
+                      display: inline-block;
+                      background-color: #9fcc4b;
+                      border-radius: 5px;
+                      padding: 30px;
+                      width: 50%;
+                      position: center;
+                    }
+                    .loginform:hover{
+                    background-color: #00ffe5;
+                     }
+                    header{
+                      padding-bottom: 300px;
+                    }
+                    body{
+                      margin: 0;
+                      text-align: center;
+                      background: linear-gradient(90deg, #00ffe5 0%, #9fcc4b 49%, #88ff00 100%);
+                      background-repeat: no-repeat;
+                      background-attachment: fixed;
+                    }
+                    table {
+  border-collapse: collapse;
+  width:70%; 
+  margin-left:15%; 
+  margin-right:15%;
+}
+.header {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #f1f1f1;
+  padding: 20px 10px;
+}
+.footer {
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #f1f1f1;
+  padding: 20px 10px;
+}
+.wlc{
+  margin-top: 100px;
+}
+@media screen and (min-width: 601px) {
+  div{
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  div {
+    
+    font-size: 2vh;
+  }
+}
+
+    </style>
+    </head>
+    <body>
+        
+
+<script>
+$(document).ready(function(){
+  var first_name = window.localStorage.getItem("first_name");
+  //alert (first_name);
+  $("#first_name").html(first_name);
+  $("#logout").click(function(){
+    window.localStorage.clear();
+    window.location="index.html";
+  });
+  $("#get").click(function(){
+  var id = window.localStorage.getItem("id");
+        $.ajax({
+            url: "home.php?id="+ id,
+            type: 'post',
+            success:function(response){
+              $("#viewtable").html(response);
+            }
+        });
+        });
+});
+ </script>
+  <script type="text/javascript" src="cordova.js"></script>
+ <header>
+                    <div class="header">
+            Your Application
+          </div></header>
+          <body>
+
+            <div id="wlc">Welcome to Home Page "<span id="first_name"></span>"</div>
+            <div id="viewtable"></div>
+            <button id="get">get more </button>
+            <div class="footer" id="logout">
+  Logout
+</div>
+          </body>
+    </head>
+</html>
